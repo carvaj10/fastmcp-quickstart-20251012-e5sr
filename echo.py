@@ -1735,4 +1735,21 @@ def search_table_in_all_databases(table_name: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run()
+    import asyncio
+    import sys
+
+    # Detectar si estamos en un entorno con loop activo
+    try:
+        loop = asyncio.get_running_loop()
+        # Si hay un loop corriendo, usar nest_asyncio
+        try:
+            import nest_asyncio
+
+            nest_asyncio.apply()
+            mcp.run(transport="stdio")
+        except ImportError:
+            # Si no tenemos nest_asyncio, usar método alternativo
+            mcp.run(transport="stdio")
+    except RuntimeError:
+        # No hay loop activo, ejecutar normalmente
+        mcp.run(transport="stdio")
