@@ -1740,11 +1740,16 @@ def search_table_in_all_databases(table_name: str) -> str:
 
 if __name__ == "__main__":
     import sys
+    import asyncio
     from fastmcp.cli.run import run_command
 
     if len(sys.argv) > 1 and sys.argv[1] == "--http":
         # Modo HTTP para exposición web usando FastMCP CLI
-        run_command(server_spec="echo.py", transport="http", host="0.0.0.0", port=9095)
+        asyncio.run(
+            run_command(
+                server_spec="echo.py", transport="http", host="0.0.0.0", port=9095
+            )
+        )
     else:
         # Modo stdio para Claude Desktop
         mcp.run(transport="stdio")
