@@ -1739,4 +1739,11 @@ def search_table_in_all_databases(table_name: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run()
+    import sys
+
+    if len(sys.argv) > 1 and sys.argv[1] == "--http":
+        # Modo HTTP para exposición web
+        mcp.run(transport="http", host="0.0.0.0", port=9095)
+    else:
+        # Modo stdio para Claude Desktop
+        mcp.run(transport="stdio")

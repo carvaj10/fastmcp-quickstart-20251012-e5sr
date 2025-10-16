@@ -38,5 +38,5 @@ USER app
 # Exponer puerto 9095
 EXPOSE 9095
 
-# Comando por defecto
-CMD ["uv", "run", "echo.py"]
+# Comando por defecto (modo HTTP para exposición web)
+CMD ["uv", "run", "python", "echo.py", "--http"]
