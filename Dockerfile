@@ -39,4 +39,4 @@ USER app
 EXPOSE 9095
 
 # Comando por defecto
-CMD ["uv", "run", "python", "echo.py"]
+CMD ["uv", "run", "echo.py"]

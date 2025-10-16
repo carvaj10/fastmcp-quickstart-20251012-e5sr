@@ -17,7 +17,7 @@ services:
       - ./.env:/app/.env:ro
     restart: unless-stopped
     networks:
-      - mcp-network
+      - mcp-network 
 
 networks:
   mcp-network:
