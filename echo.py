@@ -1739,4 +1739,4 @@ def search_table_in_all_databases(table_name: str) -> str:
 
 
 if __name__ == "__main__":
-    mcp.run(transport="http", host="127.0.0.1", port=9095)
+    mcp.run(transport="http", host="0.0.0.0", port=9095)
