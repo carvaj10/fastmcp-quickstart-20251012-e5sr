@@ -1,6 +1,6 @@
 import os
 import json
-import pymssql
+import pyodbc
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
 
@@ -14,12 +14,14 @@ DB_CONFIGS = {
         "database": os.getenv("DEV_DATABASE"),
         "username": os.getenv("DEV_USERNAME"),
         "password": os.getenv("DEV_PASSWORD"),
+        "driver": "{ODBC Driver 17 for SQL Server}",
     },
     "INTEGRACION_CW_20_DEV": {
         "server": os.getenv("DEV_SERVER"),
         "database": "INTEGRACION_CW_20_DEV",
         "username": os.getenv("DEV_USERNAME"),
         "password": os.getenv("DEV_PASSWORD"),
+        "driver": "{ODBC Driver 17 for SQL Server}",
     },
 }
 
@@ -41,12 +43,14 @@ def get_db_connection(database_key: str = "default"):
         raise ValueError(f"Base de datos '{database_key}' no configurada")
 
     config = DB_CONFIGS[database_key]
-    return pymssql.connect(
-        server=config["server"],
-        database=config["database"],
-        user=config["username"],
-        password=config["password"],
+    conn_string = (
+        f"DRIVER={config['driver']};"
+        f"SERVER={config['server']};"
+        f"DATABASE={config['database']};"
+        f"UID={config['username']};"
+        f"PWD={config['password']}"
     )
+    return pyodbc.connect(conn_string)
 
 
 @mcp.tool()
